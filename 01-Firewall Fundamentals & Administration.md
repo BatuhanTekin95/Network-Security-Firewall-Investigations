@@ -97,13 +97,131 @@ The Windows Defender Firewall dashboard provides an overview of active network p
 
 > Windows Defender Firewall dashboard displaying available network profiles and firewall management options.
 
-## Creating a Custom Firewall Rule
 
-To better understand how firewall policies affect network communications, I created a custom outbound rule designed to block HTTP and HTTPS traffic. This exercise demonstrates how firewall rules can be used to restrict specific services and control network access.
+## Firewall Classification by Deployment
 
-The rule was configured through the Windows Defender Firewall with Advanced Security console, which provides detailed control over inbound and outbound traffic policies.
+Firewalls can also be classified based on how they are deployed within an environment.
 
+### Hardware Firewall
 
+Hardware firewalls are dedicated network appliances positioned between networks. They inspect traffic before it reaches internal systems and are commonly used in enterprise environments.
+
+Examples include:
+
+- Cisco ASA
+- Fortinet FortiGate
+- Palo Alto Networks
+- WatchGuard Firebox
+
+### Software Firewall
+
+Software firewalls run directly on operating systems and provide host-based protection.
+
+Examples include:
+
+- Windows Defender Firewall
+- Linux iptables
+- Linux firewalld
+
+Software firewalls allow organizations to enforce security policies at the individual host level.
+
+---
+
+## Packet Filtering Firewall
+
+Packet-filtering firewalls are the most basic type of firewall technology.
+
+They inspect:
+
+- Source IP Address
+- Destination IP Address
+- Protocol
+- Source Port
+- Destination Port
+
+Each packet is evaluated independently against predefined firewall rules. Because no connection state information is stored, packet-filtering firewalls are considered stateless firewalls.
+
+While they provide fast performance, they cannot understand the context of a network session.
+
+---
+
+## How Firewalls Inspect Network Traffic
+
+Firewalls make filtering decisions by inspecting specific fields within network packets. Depending on the firewall type, these fields may include information from the IP header, TCP/UDP header, or even the application layer.
+
+At a minimum, most firewalls inspect:
+
+- Protocol (TCP, UDP, ICMP)
+- Source IP Address
+- Destination IP Address
+- Source Port
+- Destination Port
+
+These fields allow administrators to create security policies that permit or block specific network communications.
+
+---
+
+## Protocol-Based Filtering
+
+Traditional packet-filtering firewalls evaluate traffic based on network protocols and addressing information.
+
+Common protocols inspected by firewalls include:
+
+- TCP (Transmission Control Protocol)
+- UDP (User Datagram Protocol)
+- ICMP (Internet Control Message Protocol)
+
+By filtering traffic according to protocol type, organizations can restrict unnecessary network communications and reduce the attack surface.
+
+---
+
+## Port-Based Filtering
+
+Many firewall rules rely on TCP and UDP port numbers to identify services.
+
+| Service | Default Port |
+| ------- | ------------ |
+| HTTP    | 80           |
+| HTTPS   | 443          |
+| DNS     | 53           |
+| SSH     | 22           |
+| RDP     | 3389         |
+
+Although port-based filtering remains effective, modern applications may use non-standard ports. As a result, advanced firewalls often perform deeper traffic inspection rather than relying solely on port numbers.
+
+---
+
+## Firewall Inspection Across OSI Layers
+
+Different firewall technologies operate at different layers of the OSI model.
+
+| Firewall Type                   | OSI Layers        |
+| ------------------------------- | ----------------- |
+| Packet Filtering                | Layer 3 - Layer 4 |
+| Stateful Firewall               | Layer 3 - Layer 4 |
+| Proxy Firewall                  | Layer 7           |
+| Next-Generation Firewall (NGFW) | Layer 3 - Layer 7 |
+
+As firewall technologies become more advanced, they gain visibility into higher network layers and can inspect application-level traffic, user activity, and encrypted communications.
+
+---
+
+## Key Takeaways for SOC Analysts
+
+Throughout this project, I explored how firewalls inspect network traffic, enforce security policies, and generate valuable security telemetry.
+
+Key concepts covered include:
+
+- Firewall architectures
+- Stateful and stateless inspection
+- Protocol and port-based filtering
+- Firewall rule components
+- Traffic direction and actions
+- Host-based firewall management
+
+Understanding firewall behavior is essential for SOC analysts because firewall logs frequently provide evidence of reconnaissance activity, unauthorized access attempts, malware communications, and potential data exfiltration.
+
+Firewall visibility plays a critical role in incident investigations, threat hunting activities, and overall network security monitoring.
 
 
 
