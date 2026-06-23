@@ -290,7 +290,7 @@ MAC spoofing may help evade simple network access controls that rely on MAC addr
 
 ### Packet Fragmentation
 
-Modern IDS/IPS and Next-Generation Firewalls typically reassemble fragmented packets before inspection, reducing the effectiveness of this technique.
+Packet fragmentation breaks network traffic into smaller fragments, potentially reducing visibility to legacy filtering devices.
 
 Common options include:
 
