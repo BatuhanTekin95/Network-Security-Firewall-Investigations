@@ -1,6 +1,15 @@
 # Firewall Fundamentals
 
+Understanding firewall technologies, traffic filtering, firewall types, Next-Generation Firewalls (NGFWs), and common firewall evasion techniques from a SOC analyst perspective.
+
 ## Introduction
+
+Firewalls are a critical component of network security. They monitor, inspect, and filter traffic between trusted and untrusted networks based on predefined security policies. Modern firewalls can also provide advanced capabilities such as intrusion prevention, application awareness, and encrypted traffic inspection.
+
+
+<img width="1536" height="1024" alt="ChatGPT Image 23 Haz 2026 22_05_22" src="https://github.com/user-attachments/assets/0211927f-1430-4224-bf15-778967603e34" />
+
+> Conceptual overview of how modern firewalls inspect, filter, and control network traffic while allowing legitimate communication and blocking malicious activity.
 
 After completing my SIEM Investigation Case Studies project, I wanted to expand my knowledge into another essential area of cybersecurity: firewall technologies and network security.
 
@@ -13,6 +22,10 @@ In this module, I will explore the fundamental concepts of firewall technology, 
 By building a strong foundation in firewall technologies, security analysts can better understand network activity and improve their ability to detect and respond to potential threats.
 
 ## Types of Firewalls
+
+<img width="1536" height="1024" alt="ChatGPT Image 23 Haz 2026 22_15_32" src="https://github.com/user-attachments/assets/306c288f-8d21-438e-87af-552114549238" />
+
+> Comparison of firewall technologies, inspection methods, OSI layer coverage, and security capabilities used to protect modern networks.
 
 ### Stateless Firewall
 
@@ -223,9 +236,127 @@ Understanding firewall behavior is essential for SOC analysts because firewall l
 
 Firewall visibility plays a critical role in incident investigations, threat hunting activities, and overall network security monitoring.
 
+## Firewall Evasion Techniques
+
+During network reconnaissance and penetration testing activities, attackers may attempt to bypass firewall filtering and security monitoring controls. Nmap provides several techniques that can alter packet characteristics, disguise scan origins, and reduce the likelihood of detection by traditional security devices.
+
+Common techniques include decoy scanning, IP and MAC address spoofing, source port manipulation, packet fragmentation, and port tunneling. Understanding these methods helps security analysts recognize suspicious network behavior and investigate potential firewall evasion attempts.
+
+<img width="1536" height="1024" alt="ChatGPT Image 23 Haz 2026 22_19_49" src="https://github.com/user-attachments/assets/e9aca6c7-238f-4971-876b-dff0aa9fab9e" />
+
+> Firewall evasion techniques may appear during reconnaissance, penetration testing, or malicious activity. Understanding these methods helps security analysts detect suspicious network behavior and investigate potential security incidents.
+
+### Decoy Scanning
+
+Nmap allows the use of decoy IP addresses during a scan to disguise the true source of reconnaissance activity.
+
+Example:
+
+nmap -sS -Pn -D RND,RND,ME -F TARGET_IP
+
+This technique generates traffic that appears to originate from multiple source IP addresses, making attribution more difficult during network monitoring.
+
+
+### Source Port Manipulation
+
+Some firewalls apply filtering decisions based on source port numbers. Nmap can modify the source port used during scanning.
+
+Example:
+
+nmap -sS -Pn -g 8080 -F TARGET_IP
+
+Using a trusted source port may help bypass poorly configured firewall rules that rely only on port-based filtering.
+
+### IP Address Spoofing
+
+IP spoofing alters the source IP address contained in packets to disguise the origin of network traffic.
+
+Example:
+
+nmap -sS -Pn -S SPOOFED_IP TARGET_IP
+
+This technique can be used to obscure scan origins or exploit trust relationships between systems.
+
+### MAC Address Spoofing
+
+Attackers can modify their MAC address to impersonate another device on the local network.
+
+Example:
+
+nmap --spoof-mac MAC_ADDRESS TARGET_IP
+
+MAC spoofing may help evade simple network access controls that rely on MAC address identification.
+
+
+### Packet Fragmentation
+
+Modern IDS/IPS and Next-Generation Firewalls typically reassemble fragmented packets before inspection, reducing the effectiveness of this technique.
+
+Common options include:
+
+- `-f` → Fragment packets into 8-byte chunks
+- `-ff` → Fragment packets into 16-byte chunks
+- `--mtu` → Specify a custom MTU value
+- `--data-length` → Append random data to packets
+
+Modern IDS/IPS and Next-Generation Firewalls typically reassemble fragmented packets before inspection, reducing the effectiveness of this technique.
+
+
+### Key Takeaway
+
+Understanding firewall evasion techniques helps SOC analysts recognize suspicious network behavior and identify reconnaissance activities that may otherwise appear as normal traffic. While modern security solutions can detect many of these methods, awareness of these techniques remains important during investigations and threat hunting activities.
 
 
 
+### SOC Analyst Perspective
+
+During investigations, analysts may encounter fragmented packets, unusual MTU values, or packets containing unexpected amounts of padding data. These characteristics can indicate reconnaissance activity, firewall evasion attempts, or penetration testing operations.
+
+Modern IDS/IPS and Next-Generation Firewalls typically reassemble fragmented packets before inspection, reducing the effectiveness of these techniques. However, analysts should remain aware of them when reviewing network traffic.
+
+### Port Tunneling
+
+Port tunneling is a technique that forwards network traffic from one port to another port that is allowed through a firewall.
+
+For example, if a firewall blocks traffic to TCP port 80 but allows TCP port 8080 or 443, traffic can be redirected through the permitted port and forwarded internally to the blocked service.
+
+This technique is commonly used by attackers to bypass network filtering controls and maintain communication with internal services.
+
+### Lab Demonstration
+
+In this lab, Ncat was used to create a simple port forwarding tunnel. Traffic received on TCP port 8008 was forwarded to an internal web service running on TCP port 80.
+
+<img width="802" height="159" alt="Ekran görüntüsü 2026-06-23 214139" src="https://github.com/user-attachments/assets/bab4891e-6d7d-46db-b68a-d0a4909a050a" />
+
+> Ncat was used to create a simple port forwarding tunnel between TCP ports 8008 and 80. This demonstrates how traffic can be redirected through an allowed port to reach an internal service that would otherwise be inaccessible due to firewall restrictions.
+
+### SOC Analyst Perspective
+
+Security analysts should monitor for unusual port forwarding activity and unexpected communication patterns between services. Port tunneling may indicate attempts to bypass firewall restrictions, hide malicious traffic, or access internal systems through alternative communication channels.
+
+## Next-Generation Firewalls (NGFW)
+
+<img width="1536" height="1024" alt="ChatGPT Image 23 Haz 2026 22_42_10" src="https://github.com/user-attachments/assets/c1221a13-54ad-4f28-a067-22310ad29afc" />
+
+> Overview of Next-Generation Firewall (NGFW) capabilities, including deep packet inspection, application awareness, intrusion prevention, SSL/TLS inspection, threat intelligence, and advanced traffic visibility.
+
+
+Traditional firewalls primarily rely on IP addresses, ports, and protocols to make filtering decisions. However, modern applications often use encryption and non-standard ports, making traditional filtering less effective.
+
+Next-Generation Firewalls (NGFWs) provide advanced security capabilities beyond basic packet filtering, including:
+
+* Integrated Intrusion Prevention System (IPS)
+* Application Awareness and Control
+* User and Identity Awareness
+* Deep Packet Inspection (DPI)
+* Content Inspection
+* SSL/TLS Traffic Inspection
+
+By inspecting traffic at the application layer (OSI Layer 7), NGFWs can identify applications, users, and malicious content regardless of the port being used.
+
+### SOC Analyst Perspective
+
+NGFWs provide greater visibility into network traffic and user activity. Security analysts can leverage NGFW logs to detect suspicious applications, policy violations, encrypted threats, and attempts to bypass traditional firewall controls. Properly configured NGFWs significantly improve an organization's ability to detect and prevent modern cyberattacks.
 
 
 
