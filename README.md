@@ -1,36 +1,51 @@
-# Network Security & Firewall Investigations
+# Firewall Technologies & Security Monitoring
 
 ## Introduction
 
-After completing my SIEM Investigation Case Studies project, I wanted to expand my learning into another critical area of security operations: network security and firewall analysis.
+After completing my previous security-focused projects, I wanted to expand my knowledge into another critical area of cybersecurity: firewall technologies, network security, and traffic filtering.
 
-Network traffic often provides some of the earliest indicators of malicious activity. Understanding how firewalls monitor, filter, and log network communications is an essential skill for SOC analysts and security professionals.
+This repository documents my learning journey through firewall fundamentals, firewall administration, network traffic filtering, firewall evasion techniques, and security monitoring from a SOC analyst perspective.
 
-This repository documents my journey of learning firewall technologies, analyzing network traffic, investigating suspicious connections, and developing practical investigation skills through hands-on case studies.
+Throughout this project, I explored how firewalls inspect, filter, and control network traffic, how Next-Generation Firewalls (NGFWs) provide advanced protection, and how firewall telemetry supports threat hunting, incident response, and security investigations.
 
-Throughout this repository, I will cover fundamental firewall concepts, network security principles, traffic analysis techniques, threat detection methodologies, and real-world investigation scenarios.
+### Previous Projects
 
-## Planned Topics
+Before starting this repository, I completed the following cybersecurity projects:
 
-- Firewall Fundamentals
-- Firewall Log Analysis
-- Network Traffic Investigation
-- Port Scanning Detection
-- Suspicious Connection Analysis
-- Threat Intelligence & IOC Validation
-- Firewall Investigation Case Studies
+* [SOC Phishing Case Studies](https://github.com/BatuhanTekin95/SOC-Phishing-Case-Studies)
+  Investigation of phishing attacks, email analysis, header analysis, IOC identification, malware delivery techniques, and phishing detection methodologies.
 
-## Objectives
+* [SIEM Investigation Case Studies](https://github.com/BatuhanTekin95/SIEM-Investigation-Case-Studies)
+  Security investigations using Splunk and Elastic Security, including threat hunting, lateral movement detection, ransomware analysis, and incident response workflows.
 
-- Understand how firewalls protect networks
-- Learn to analyze firewall logs
-- Investigate suspicious network activity
-- Identify indicators of compromise (IOCs)
-- Develop practical network security investigation skills
-- Strengthen SOC analyst investigation workflows
+These projects helped build a strong foundation in security monitoring and investigation, which naturally led to studying firewall technologies and network defense mechanisms.
 
-## Repository Status
+## Repository Objectives
 
-🚧 Work in Progress
+This repository focuses on:
 
-New modules and investigation case studies will be added as I continue my learning journey.
+* Firewall Fundamentals
+* Firewall Types and Architectures
+* Firewall Rules and Traffic Filtering
+* Windows Defender Firewall
+* Next-Generation Firewalls (NGFW)
+* Firewall Evasion Techniques
+* Packet Fragmentation
+* Port Tunneling
+* Firewall Logging & Monitoring
+* SOC Analyst Perspectives and Practical Labs
+
+## Learning Goals
+
+By completing this project, I aim to:
+
+* Understand how firewalls inspect and control network traffic
+* Learn the differences between traditional and next-generation firewalls
+* Analyze common firewall evasion techniques
+* Understand the role of firewall logs in security investigations
+* Strengthen practical network security knowledge for SOC analyst roles
+* Improve threat hunting and incident investigation skills
+
+---
+
+> Understanding firewall technologies is an essential skill for security analysts, as firewall logs and network telemetry often provide critical evidence during threat hunting, incident response, and security investigations.
