@@ -359,6 +359,34 @@ By inspecting traffic at the application layer (OSI Layer 7), NGFWs can identify
 NGFWs provide greater visibility into network traffic and user activity. Security analysts can leverage NGFW logs to detect suspicious applications, policy violations, encrypted threats, and attempts to bypass traditional firewall controls. Properly configured NGFWs significantly improve an organization's ability to detect and prevent modern cyberattacks.
 
 
+## Firewall Logging & Monitoring
+
+Firewalls generate logs that provide visibility into network traffic, connection attempts, blocked communications, and policy violations.
+
+Common events monitored by security analysts include:
+
+- Allowed and denied connections
+- Port scanning activity
+- Suspicious outbound traffic
+- Firewall rule violations
+- Communication with known malicious IP addresses
+
+Firewall logs are commonly integrated into SIEM platforms such as Splunk and Elastic Security to support threat hunting, incident detection, and forensic investigations.
+
+> Firewall logs often provide valuable evidence during security investigations and help analysts identify suspicious network behavior.
+
+
+## Conclusion
+
+This project explored the fundamental concepts of firewall technologies, traffic filtering mechanisms, firewall rule management, and common firewall evasion techniques.
+
+In addition to traditional firewall architectures, I examined advanced security capabilities provided by Next-Generation Firewalls (NGFWs), including deep packet inspection, application awareness, intrusion prevention, and SSL/TLS inspection.
+
+I also explored how firewall logs support security monitoring, threat hunting, and incident investigations within modern SOC environments.
+
+Understanding how firewalls inspect, filter, and log network traffic is an essential skill for security analysts, as firewall telemetry often provides critical evidence during cybersecurity investigations and incident response activities.
+
+
 
 
 
