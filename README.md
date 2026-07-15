@@ -7,10 +7,10 @@ This repository is where I document my firewall studies from a SOC analyst's poi
 | Module | Focus | Status |
 | --- | --- | --- |
 | [Firewall Fundamentals and Administration](docs/Firewall-Fundamentals-and-Administration.md) | Firewall types, rule evaluation, Windows Firewall, NGFW capabilities, evasion limits and log analysis | Complete |
-| [Windows Firewall Rule Validation Lab](labs/Windows-Firewall-Rule-Validation.md) | Controlled allow/block test, evidence collection and rollback | Ready to run |
+| [Windows Firewall Rule Validation Lab](labs/Windows-Firewall-Rule-Validation.md) | Controlled allow/block test, firewall log correlation and verified rollback | Completed |
 | [Firewall Detection Notes](detections/README.md) | Normalized fields, triage workflow and starter SIEM queries | Draft detections |
 
-The status labels are intentional. A lab marked **Ready to run** contains a reproducible procedure, but I do not present it as completed evidence until I have added my own results.
+The status labels are intentional. A lab marked **Completed** includes dated evidence and verified cleanup. Draft detections still require environment-specific field mapping and tuning.
 
 ## What I am practising
 
