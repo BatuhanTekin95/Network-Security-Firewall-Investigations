@@ -1,51 +1,58 @@
-# Firewall Technologies & Security Monitoring
+# Firewall Technologies and Security Monitoring
 
-## Introduction
+This repository is where I document my firewall studies from a SOC analyst's point of view. The focus is not only on how firewall rules work, but also on what their logs can tell an analyst during triage and investigation.
 
-After completing my previous security-focused projects, I wanted to expand my knowledge into another critical area of cybersecurity: firewall technologies, network defense, and traffic filtering.
+## Current content
 
-This repository documents my learning journey through firewall fundamentals, firewall administration, network traffic filtering, firewall evasion techniques, and security monitoring from a SOC analyst perspective.
+| Module | Focus | Status |
+| --- | --- | --- |
+| [Firewall Fundamentals and Administration](docs/Firewall-Fundamentals-and-Administration.md) | Firewall types, rule evaluation, Windows Firewall, NGFW capabilities, evasion limits and log analysis | Complete |
+| [Windows Firewall Rule Validation Lab](labs/Windows-Firewall-Rule-Validation.md) | Controlled allow/block test, evidence collection and rollback | Ready to run |
+| [Firewall Detection Notes](detections/README.md) | Normalized fields, triage workflow and starter SIEM queries | Draft detections |
 
-Throughout this project, I explored how firewalls inspect, filter, and control network traffic, how Next-Generation Firewalls (NGFWs) provide advanced protection, and how firewall telemetry supports threat hunting, incident response, and security investigations.
+The status labels are intentional. A lab marked **Ready to run** contains a reproducible procedure, but I do not present it as completed evidence until I have added my own results.
 
-### Previous Projects
+## What I am practising
 
-Before starting this repository, I completed the following cybersecurity projects:
+- Reading firewall policy as ordered, state-aware traffic decisions
+- Separating filtering rules from routing, NAT and port-forwarding functions
+- Validating Windows Firewall changes safely and documenting rollback
+- Reviewing allowed and denied connections in context
+- Turning firewall telemetry into investigation questions and detection ideas
+- Recording limitations instead of treating a single log source as proof
 
-* [SOC Phishing Case Studies](https://github.com/BatuhanTekin95/SOC-Phishing-Case-Studies)
-  Investigation of phishing attacks, email analysis, header analysis, IOC identification, malware delivery techniques, and phishing detection methodologies.
+## Repository structure
 
-* [SIEM Investigation Case Studies](https://github.com/BatuhanTekin95/SIEM-Investigation-Case-Studies)
-  Security investigations using Splunk and Elastic Security, including threat hunting, lateral movement detection, ransomware analysis, and incident response workflows.
+```text
+.
+|-- docs/          # Technical notes and concepts
+|-- labs/          # Reproducible exercises with cleanup steps
+|-- detections/    # SOC triage notes and starter SIEM queries
+|-- .github/       # Documentation quality checks
+|-- LICENSE
+`-- README.md
+```
 
-These projects helped build a strong foundation in security monitoring and investigation, which naturally led to studying firewall technologies and network defense mechanisms.
+## Investigation approach
 
-## Repository Objectives
+My basic workflow is:
 
-This repository focuses on:
+1. Confirm the time range, affected host and network direction.
+2. Review the firewall action and the rule that produced it.
+3. Group repeated activity by source, destination, port and time window.
+4. Compare the traffic with endpoint, DNS, proxy and authentication evidence.
+5. Record what is known, what is inferred and what still needs validation.
 
-* Firewall Fundamentals
-* Firewall Types and Architectures
-* Firewall Rules and Traffic Filtering
-* Windows Defender Firewall
-* Next-Generation Firewalls (NGFW)
-* Firewall Evasion Techniques
-* Packet Fragmentation
-* Port Tunneling
-* Firewall Logging & Monitoring
-* SOC Analyst Perspectives and Practical Labs
+## Scope and safety
 
-## Learning Goals
+The commands and evasion examples in this repository are for systems I own or have explicit permission to test. The practical lab uses a controlled network and includes cleanup steps. The detection queries are starting points and require field mapping and tuning before production use.
 
-By completing this project, I aim to:
+## Related projects
 
-* Understand how firewalls inspect and control network traffic
-* Learn the differences between traditional and next-generation firewalls
-* Analyze common firewall evasion techniques
-* Understand the role of firewall logs in security investigations
-* Strengthen practical network security knowledge for SOC analyst roles
-* Improve threat hunting and incident investigation skills
+- [Detection Engineering](https://github.com/BatuhanTekin95/Detection-Engineering)
+- [SIEM Investigation Case Studies](https://github.com/BatuhanTekin95/SIEM-Investigation-Case-Studies)
+- [SOC Phishing Case Studies](https://github.com/BatuhanTekin95/SOC-Phishing-Case-Studies)
 
----
+## License
 
-> Understanding firewall technologies is an essential skill for security analysts, as firewall logs and network telemetry often provide critical evidence during threat hunting, incident response, and security investigations.
+This project is available under the [MIT License](LICENSE).
