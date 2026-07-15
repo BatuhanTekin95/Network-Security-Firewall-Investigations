@@ -1,6 +1,6 @@
 # Windows Firewall Rule Validation Lab
 
-**Status:** Ready to run
+**Status:** Completed — 2026-07-15
 
 ## Objective
 
@@ -9,7 +9,7 @@ Validate a narrowly scoped inbound rule, collect the related Windows Firewall ev
 ## Lab setup
 
 - One Windows 10/11 or Windows Server target
-- One client on the same isolated lab network
+- One Windows or Linux client on the same isolated lab network
 - Local administrator access on the Windows target
 - An elevated PowerShell session
 - TCP port `8088` unused before the test
@@ -38,7 +38,7 @@ Expected result: no existing listener on TCP `8088`. If the port is in use, choo
 ## 2. Enable temporary logging
 
 ```powershell
-Set-NetFirewallProfile -Profile Domain,Private,Public `
+Set-NetFirewallProfile -Profile Public `
     -LogAllowed True -LogBlocked True -LogMaxSizeKilobytes 20480
 ```
 
@@ -66,6 +66,8 @@ $listener.LocalEndpoint
 In a second elevated PowerShell window on the target:
 
 ```powershell
+$clientIP = "CLIENT_IP"
+
 New-NetFirewallRule `
     -DisplayName "Lab - Allow TCP 8088" `
     -Group $labGroup `
@@ -73,7 +75,8 @@ New-NetFirewallRule `
     -Action Allow `
     -Protocol TCP `
     -LocalPort 8088 `
-    -Profile Any
+    -RemoteAddress $clientIP `
+    -Profile Public
 ```
 
 From the client:
@@ -81,6 +84,15 @@ From the client:
 ```powershell
 Test-NetConnection -ComputerName TARGET_IP -Port 8088 -InformationLevel Detailed
 ```
+
+From a Kali or other Linux client:
+
+```bash
+date --iso-8601=seconds
+nc -nvz -w 3 TARGET_IP 8088
+```
+
+Expected result: `TcpTestSucceeded : True` on Windows or `open` with Netcat on Linux.
 
 Record:
 
@@ -104,10 +116,11 @@ New-NetFirewallRule `
     -Action Block `
     -Protocol TCP `
     -LocalPort 8088 `
-    -Profile Any
+    -RemoteAddress $clientIP `
+    -Profile Public
 ```
 
-Repeat the client test. The expected result is `TcpTestSucceeded : False`.
+Repeat the client test. The expected result is `TcpTestSucceeded : False` on Windows or a connection timeout on Linux.
 
 ## 6. Review evidence
 
@@ -151,19 +164,23 @@ Get-NetTCPConnection -LocalPort 8088 -ErrorAction SilentlyContinue
 
 Expected result: neither a lab rule nor a listener remains.
 
-## Evidence template
+## Recorded results
 
 | Item | Observation |
 | --- | --- |
-| Lab date and timezone | Not recorded yet |
-| Target / client | Not recorded yet |
-| Active firewall profile | Not recorded yet |
-| Allow test result | Not recorded yet |
-| Block test result | Not recorded yet |
-| Matching log evidence | Not recorded yet |
-| Cleanup verified | Not recorded yet |
+| Lab date and timezone | 2026-07-15, Europe/Berlin (`UTC+02:00`) |
+| Target / client | Windows host `192.168.1.5` / Kali Linux VM `192.168.1.12` |
+| Virtual network | VirtualBox bridged adapter on the same `/24` network |
+| Active firewall profile | Public |
+| Test service | TCP listener on `0.0.0.0:8088` |
+| Allow test result | Netcat reported TCP 8088 as `open` |
+| Block test result | Netcat connection timed out while the listener remained active |
+| Matching log evidence | Windows Firewall recorded `DROP` and `ALLOW` for the same source, destination and destination port |
+| Cleanup verified | Lab rule removed, listener stopped and logging restored to `False / False / 4096 KB` |
 
-I will replace these placeholders with my own results when I run the lab. Until then, this document describes the test procedure rather than claiming a completed investigation.
+The complete, ordered screenshot set is available in the [Windows Firewall lab evidence gallery](../evidence/windows-firewall-lab/README.md).
+
+The private addresses are retained in the screenshots so the rule, client test and firewall log can be correlated. They are RFC 1918 lab addresses and are not publicly routable.
 
 ## References
 
